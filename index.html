@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Total Bayar</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      table th,
+      table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      input[type="number"] {
+        width: 50px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        margin-right: 5px;
+      }
+
+      #totalBayar {
+        font-size: 30px;
+        font-weight: bold;
+        color: green;
+      }
+      #resetBtn {
+        padding: 10px 20px;
+        background-color: #ddd;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 25px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Daftar Belanja</h1>
+    <table>
+      <tr>
+        <th>Barang</th>
+        <th>Harga Satuan</th>
+        <th>Jumlah</th>
+        <th>Subtotal</th>
+      </tr>
+      <tr>
+        <td>Gorengan</td>
+        <td>1000</td>
+        <td><input type="number" id="gorenganQty" value="" min="0" /></td>
+        <td><span id="gorenganSubtotal">0</span></td>
+      </tr>
+      <tr>
+        <td>Nasi</td>
+        <td>2000</td>
+        <td><input type="number" id="nasiQty" value="" min="0" /></td>
+        <td><span id="nasiSubtotal">0</span></td>
+      </tr>
+      <tr>
+        <td>Sate</td>
+        <td>3000</td>
+        <td><input type="number" id="sateQty" value="" min="0" /></td>
+        <td><span id="sateSubtotal">0</span></td>
+      </tr>
+      <tr>
+        <td>Usus</td>
+        <td>1000</td>
+        <td><input type="number" id="ususQty" value="" min="0" /></td>
+        <td><span id="ususSubtotal">0</span></td>
+      </tr>
+      <tr>
+        <td>Ceker</td>
+        <td>1000</td>
+        <td><input type="number" id="cekerQty" value="" min="0" /></td>
+        <td><span id="cekerSubtotal">0</span></td>
+      </tr>
+      <tr>
+        <td>Minuman</td>
+        <td>3000</td>
+        <td><input type="number" id="minumanQty" value="" min="0" /></td>
+        <td><span id="minumanSubtotal">0</span></td>
+      </tr>
+      <tr>
+        <td>Minuman Lain</td>
+        <td>4000</td>
+        <td><input type="number" id="minumanLainQty" value="" min="0" /></td>
+        <td><span id="minumanLainSubtotal">0</span></td>
+      </tr>
+      <tr>
+        <td>Rokok</td>
+        <td>3000 lebih dari satu 2500</td>
+        <td><input type="number" id="rokokQty" value="" min="0" /></td>
+        <td><span id="rokokSubtotal">0</span></td>
+      </tr>
+    </table>
+    <p>Total Bayar: Rp <span id="totalBayar">0</span></p>
+    <p><button id ="resetBtn" onclick="resetForm()">RESET</button></p>
+    <script>
+      const gorenganQty = document.getElementById("gorenganQty");
+      const gorenganSubtotal = document.getElementById("gorenganSubtotal");
+      const nasiQty = document.getElementById("nasiQty");
+      const nasiSubtotal = document.getElementById("nasiSubtotal");
+      const sateQty = document.getElementById("sateQty");
+      const sateSubtotal = document.getElementById("sateSubtotal");
+      const ususQty = document.getElementById("ususQty");
+      const ususSubtotal = document.getElementById("ususSubtotal");
+      const cekerQty = document.getElementById("cekerQty");
+      const cekerSubtotal = document.getElementById("cekerSubtotal");
+      const minumanQty = document.getElementById("minumanQty");
+      const minumanSubtotal = document.getElementById("minumanSubtotal");
+      const minumanLainQty = document.getElementById("minumanLainQty");
+      const minumanLainSubtotal = document.getElementById(
+        "minumanLainSubtotal"
+      );
+      const rokokQty = document.getElementById("rokokQty");
+      const rokokSubtotal = document.getElementById("rokokSubtotal");
+      const totalBayar = document.getElementById("totalBayar");
+
+      gorenganQty.addEventListener("input", updateSubtotal);
+      nasiQty.addEventListener("input", updateSubtotal);
+      sateQty.addEventListener("input", updateSubtotal);
+      ususQty.addEventListener("input", updateSubtotal);
+      cekerQty.addEventListener("input", updateSubtotal);
+      minumanQty.addEventListener("input", updateSubtotal);
+      minumanLainQty.addEventListener("input", updateSubtotal);
+      rokokQty.addEventListener("input", updateSubtotal);
+
+      function updateSubtotal() {
+        let gorenganHarga = 1000;
+        let nasiHarga = 2000;
+        let sateHarga = 3000;
+        let ususHarga = 1000;
+        let cekerHarga = 1000;
+        let minumanHarga = 3000;
+        let minumanLainHarga = 4000;
+        let rokokHarga = rokokQty.value > 1 ? 2500 : 3000;
+
+        let gorenganJumlah = gorenganQty.value;
+        let nasiJumlah = nasiQty.value;
+        let sateJumlah = sateQty.value;
+        let ususJumlah = ususQty.value;
+        let cekerJumlah = cekerQty.value;
+        let minumanJumlah = minumanQty.value;
+        let minumanLainJumlah = minumanLainQty.value;
+        let rokokJumlah = rokokQty.value;
+
+        let gorenganSub = gorenganHarga * gorenganJumlah;
+        let nasiSub = nasiHarga * nasiJumlah;
+        let sateSub = sateHarga * sateJumlah;
+        let ususSub = ususHarga * ususJumlah;
+        let cekerSub = cekerHarga * cekerJumlah;
+        let minumanSub = minumanHarga * minumanJumlah;
+        let minumanLainSub = minumanLainHarga * minumanLainJumlah;
+        let rokokSub = rokokHarga * rokokJumlah;
+
+        gorenganSubtotal.innerText = gorenganSub;
+        nasiSubtotal.innerText = nasiSub;
+        sateSubtotal.innerText = sateSub;
+        ususSubtotal.innerText = ususSub;
+        cekerSubtotal.innerText = cekerSub;
+        minumanSubtotal.innerText = minumanSub;
+        minumanLainSubtotal.innerText = minumanLainSub;
+        rokokSubtotal.innerText = rokokSub;
+
+        let total =
+          gorenganSub +
+          nasiSub +
+          sateSub +
+          ususSub +
+          cekerSub +
+          minumanSub +
+          minumanLainSub +
+          rokokSub;
+        totalBayar.innerText = total;
+      }
+      function resetForm() {
+        gorenganQty.value = "";
+        gorenganSubtotal.innerText = "0";
+        nasiQty.value = "";
+        nasiSubtotal.innerText = "0";
+        sateQty.value = "";
+        sateSubtotal.innerText = "0";
+        ususQty.value = "";
+        ususSubtotal.innerText = "0";
+        cekerQty.value = "";
+        cekerSubtotal.innerText = "0";
+        minumanQty.value = "";
+        minumanSubtotal.innerText = "0";
+        minumanLainQty.value = "";
+        minumanLainSubtotal.innerText = "0";
+        rokokQty.value = "";
+        rokokSubtotal.innerText = "0";
+        totalBayar.innerText = "0";
+      }
+    </script>
+  </body>
+</html>
